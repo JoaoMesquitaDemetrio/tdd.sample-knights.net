@@ -1,0 +1,145 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/UI/Sample.Knights.UI.Api/Sample.Knights.UI.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/src/UI/Sample.Knights.UI.Api/Sample.Knights.UI.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/src/UI/Sample.Knights.UI.Api/Sample.Knights.UI.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/UI/Sample.Knights.UI.Api/Sample.Knights.UI.Api.csproj",
+                "/property:GenerateFullPaths=true"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "app-knight-api:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/src/UI/Sample.Knights.UI.Api/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/UI/Sample.Knights.UI.Api/Sample.Knights.UI.Api.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: release",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "app-knight-api:latest",
+                "dockerfile": "${workspaceFolder}/src/UI/Sample.Knights.UI.Api/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/UI/Sample.Knights.UI.Api/Sample.Knights.UI.Api.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: debug",
+            "dependsOn": [
+                "docker-build: debug"
+            ],
+            "dockerRun": {
+                "env": {
+                    "ASPNETCORE_ENVIRONMENT": "Development",
+                    "ASPNETCORE_URLS": "http://+:80",
+                    "TZ": "America/Sao_Paulo"
+                },
+                "ports": [
+                    {
+                        "containerPort": 80,
+                        "hostPort": 5171
+                    }
+                ],
+                "network": "knight-network",
+                "containerName": "app-knight-api"
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/UI/Sample.Knights.UI.Api/Sample.Knights.UI.Api.csproj",
+                "enableDebugging": true,
+                "configureSsl": false
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release",
+            "dependsOn": [
+                "docker-build: release"
+            ],
+            "dockerRun": {
+                "env": {
+                    "ASPNETCORE_ENVIRONMENT": "Development",
+                    "ASPNETCORE_URLS": "http://+:80",
+                    "TZ": "America/Sao_Paulo"
+                },
+                "ports": [
+                    {
+                        "containerPort": 80,
+                        "hostPort": 5171
+                    }
+                ],
+                "network": "knight-network",
+                "containerName": "app-knight-api"
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/UI/Sample.Knights.UI.Api/Sample.Knights.UI.Api.csproj"
+            }
+        },
+        {
+            "label": "test",
+            "command": "dotnet test -e ASPNETCORE_ENVIRONMENT=Development ${workspaceFolder}/test/Sample.Knights.Test/Sample.Knights.Test.csproj /property:GenerateFullPaths=true",
+            "type": "shell",
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
+
