@@ -27,6 +27,14 @@ public static class EnumExtensions
                 (f, a) => new { Field = f, Att = a }
             ).Where(a => ((DescriptionAttribute)a.Att).Description == description).SingleOrDefault();
 
-        return field == null ? default(T) : (T)field.Field.GetRawConstantValue();
+        return field == null ? default : (T)field.Field.GetRawConstantValue();
+    }
+
+    public static IEnumerable<T> GetValues<T>(this Type type)
+    {
+        if (type.IsEnum)
+            return Enum.GetValues(type).Cast<T>();
+
+        return default;
     }
 }

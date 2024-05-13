@@ -3,7 +3,7 @@ using Sample.Utils.Extensions;
 
 namespace Sample.Knights.Core.Domain.Entities.Knight;
 
-public class Attribute
+public class Attributes
 {
     public int Strength { get; set; }
     public int Dexterity { get; set; }
@@ -12,7 +12,7 @@ public class Attribute
     public int Wisdom { get; set; }
     public int Charisma { get; set; }
 
-    public Attribute() { }
+    public Attributes() { }
 
     public int GetValueFromAttribute(TypeAttribute KeyAttribute) 
     {
