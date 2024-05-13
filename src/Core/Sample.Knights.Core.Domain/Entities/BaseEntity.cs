@@ -7,4 +7,7 @@ namespace Sample.Knights.Core.Domain.Entities;
 public class BaseEntity : Identifier
 {
     public bool Removed { get; set; }
+
+    public void Remove()
+        => Removed = true;
 }

@@ -199,7 +199,8 @@
           "FluentValidation": "[11.9.1, )",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "[8.0.4, )",
           "Microsoft.Extensions.DependencyInjection": "[8.0.0, )",
-          "MongoDB.Driver": "[2.25.0, )"
+          "MongoDB.Driver": "[2.25.0, )",
+          "Sample.Utils": "[1.0.0, )"
         }
       },
       "sample.knights.core.infra": {

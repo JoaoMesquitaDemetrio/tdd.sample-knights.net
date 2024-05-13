@@ -185,6 +185,13 @@
         "type": "Transitive",
         "resolved": "0.7.3",
         "contentHash": "U9Ix4l4cl58Kzz1rJzj5hoVTjmbx1qGMwzAcbv1j/d3NzrFaESIurQyg+ow4mivCgkE3S413y+U9k4WdnEIkRA=="
+      },
+      "sample.utils": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "[8.0.4, )",
+          "Microsoft.Extensions.DependencyInjection": "[8.0.0, )"
+        }
       }
     }
   }

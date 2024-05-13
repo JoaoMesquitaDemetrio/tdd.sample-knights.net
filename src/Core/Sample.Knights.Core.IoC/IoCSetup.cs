@@ -2,7 +2,7 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.Utils.Extensions;
 using APP = Sample.Knights.Core.Application;
-using DOM = Sample.Knights.Core.Domain;
+using DOM = Sample.Knights.Core.Domain.Entities;
 
 namespace Sample.Knights.Core.IoC;
 
@@ -36,7 +36,7 @@ public static class IoCSetup
         var appInterfaces = appServices?.Where(t => t.IsInterface)?.ToList();
         HandlerInterface(services, appInterfaces.GetValueOrDefault(), appServices.GetValueOrDefault());
 
-        var domainTypes = Assembly.GetAssembly(typeof(DOM.Class1))?.DefinedTypes;
+        var domainTypes = Assembly.GetAssembly(typeof(DOM.Identifier))?.DefinedTypes;
         var serviceInterfaces = domainTypes?.Where(t => t.IsInterface)?.ToList();
         HandlerInterface(services, serviceInterfaces.GetValueOrDefault(), domainTypes.GetValueOrDefault());
     }
