@@ -1,6 +1,6 @@
 using Sample.Knights.Core.Domain.Enums;
 
-namespace Sample.Knights.Core.Domain.Entities.Knight;
+namespace Sample.Knights.Core.Domain.Entities.Knights;
 
 public class Weapon : Identifier
 {

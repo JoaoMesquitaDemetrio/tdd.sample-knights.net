@@ -1,4 +1,4 @@
-using Sample.Knights.Core.Domain.Entities.Knight;
+using Sample.Knights.Core.Domain.Entities.Knights;
 using Sample.Knights.Core.Domain.Enums;
 using Sample.Knights.Test.Shared.Utils;
 

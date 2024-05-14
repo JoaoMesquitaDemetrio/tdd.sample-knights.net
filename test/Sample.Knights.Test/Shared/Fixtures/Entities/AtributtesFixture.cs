@@ -1,4 +1,4 @@
-using Sample.Knights.Core.Domain.Entities.Knight;
+using Sample.Knights.Core.Domain.Entities.Knights;
 using Sample.Knights.Test.Shared.Utils;
 
 namespace Sample.Knights.Test.Shared.Fixtures.Entities;

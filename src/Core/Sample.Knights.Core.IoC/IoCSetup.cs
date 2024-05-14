@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.Utils.Extensions;
-using APP = Sample.Knights.Core.Application;
+using APP = Sample.Knights.Core.Application.DataTransferObjects;
 using DOM = Sample.Knights.Core.Domain.Entities;
 
 namespace Sample.Knights.Core.IoC;
@@ -32,7 +32,7 @@ public static class IoCSetup
             }
         }
         
-        var appServices = Assembly.GetAssembly(typeof(APP.Class1))?.DefinedTypes;
+        var appServices = Assembly.GetAssembly(typeof(APP.HttpResponse.ResponseError))?.DefinedTypes;
         var appInterfaces = appServices?.Where(t => t.IsInterface)?.ToList();
         HandlerInterface(services, appInterfaces.GetValueOrDefault(), appServices.GetValueOrDefault());
 

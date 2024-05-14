@@ -1,7 +1,7 @@
 using Sample.Knights.Core.Domain.Enums;
 using Sample.Utils.Extensions;
 
-namespace Sample.Knights.Core.Domain.Entities.Knight;
+namespace Sample.Knights.Core.Domain.Entities.Knights;
 
 public class Attributes
 {

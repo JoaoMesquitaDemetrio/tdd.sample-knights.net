@@ -3,7 +3,8 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using Sample.Knights.UI.Api.Extensions;
 using Sample.Utils.Extensions;
-using Sample.Knights.Core.Application;
+using Sample.Knights.Core.Application.Validations;
+using Sample.Knights.UI.Api.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,12 +18,14 @@ builder.Services.AddControllers(options =>
 {
     options.AllowEmptyInputInBodyModelBinding = true;
     options.SetupGlobalRoutePrefix(new RouteAttribute("api"));
+    options.Filters.Add(typeof(HttpInterceptionCorrelation));
+    options.Filters.Add(typeof(ValidateModelStateAttribute));
 })
 .AddNewtonsoftJson(options => options.SerializerSettings.SetDefaultJsonSerializerSettings());
 
 builder.Services.AddFluentValidationAutoValidation(options => options.DisableDataAnnotationsValidation = true);
 builder.Services.AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssemblyContaining<Class1>();
+builder.Services.AddValidatorsFromAssemblyContaining<KnightInsertValidation>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorPages();

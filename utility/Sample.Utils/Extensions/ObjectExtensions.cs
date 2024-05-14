@@ -39,4 +39,10 @@ public static class ObjectExtensions
 
         return result;
     }
+
+    public static Guid AsGuid(this object item)
+    {
+        try { return new Guid(item.ToString()); }
+        catch { return Guid.Empty; }
+    }
 }

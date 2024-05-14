@@ -6,7 +6,7 @@ using Sample.Knights.Core.Domain.Interfaces.Repositories;
 
 namespace Sample.Knights.Core.Domain.Services;
 
-public class DataQueryService<T>(IMongoDBContext context) : IDataQueryService<T> where T : Identifier
+public abstract class DataQueryService<T>(IMongoDBContext context) : IDataQueryService<T> where T : Identifier
 {
     public IMongoQueryable<T> BaseQuery()
         => context.Set<T>().AsQueryable() ;

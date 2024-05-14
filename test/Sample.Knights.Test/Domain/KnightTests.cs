@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Sample.Knights.Core.Domain.Entities.Knight;
+using Sample.Knights.Core.Domain.Entities.Knights;
 using Sample.Knights.Core.Domain.Enums;
 using Sample.Knights.Test.Shared.Fixtures.Entities;
 using Sample.Utils.Extensions;
