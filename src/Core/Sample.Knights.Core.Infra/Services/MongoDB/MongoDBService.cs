@@ -19,9 +19,5 @@ public class MongoDBService : IMongoDBService
     }
     
     public void Dispose() 
-    {
-        Database.Client.Cluster.Dispose();
-        
-        GC.SuppressFinalize(this);
-    }
+        => GC.SuppressFinalize(this);
 }

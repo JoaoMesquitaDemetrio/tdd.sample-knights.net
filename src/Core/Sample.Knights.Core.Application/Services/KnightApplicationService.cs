@@ -20,9 +20,9 @@ public class KnightApplicationService(
         return entities?.Select(x => new KnightResume(x)) ?? new List<KnightResume>();
     }
 
-    public async Task<KnightDetail> GetById(Guid id)
+    public async Task<KnightDetail> GetById(string id)
     {
-        var entity = await knightService.GetById(id.ToString()) ?? new Knight();
+        var entity = await knightService.GetById(id) ?? new Knight();
         return new KnightDetail(entity);
     }
 
@@ -34,12 +34,12 @@ public class KnightApplicationService(
         var entity = model.TransferTo(); 
         await knightService.Insert(entity);
         
-        return await GetById(entity.Id.AsGuid());
+        return await GetById(entity.Id);
     }
 
-    public async Task RemoveById(Guid id)
+    public async Task RemoveById(string id)
     {
-        var entity = await knightService.GetById(id.ToString());
+        var entity = await knightService.GetById(id);
         if (entity.IsNull())
             throw new ArgumentException("Cavalheiro não encontrado");
 
@@ -47,19 +47,19 @@ public class KnightApplicationService(
         await knightService.Update(entity);
     }
 
-    public async Task<KnightDetail> Update(Guid id, KnightUpdate model)
+    public async Task<KnightDetail> Update(string id, KnightUpdate model)
     {
         if (model.IsNull())
             throw new ArgumentException("Cavalheiro inválido");
 
-        var entity = await knightService.GetById(id.ToString());
+        var entity = await knightService.GetById(id);
         if (entity.IsNull())
             throw new ArgumentException("Cavalheiro não encontrado");
 
         model.UpdateEntity(entity);
         await knightService.Update(entity);
 
-        return await GetById(entity.Id.AsGuid());
+        return await GetById(entity.Id);
     }
 
     public void Dispose()

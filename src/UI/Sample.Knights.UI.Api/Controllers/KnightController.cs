@@ -1,3 +1,4 @@
+using MongoDB.Bson;
 using Microsoft.AspNetCore.Mvc;
 using Sample.Knights.Core.Application.DataTransferObjects.HttpResponse;
 using Sample.Knights.Core.Application.DataTransferObjects.Knights;
@@ -28,13 +29,13 @@ public class KnightController(IKnightApplicationService knightApplicationService
     /// <summary>
     /// Lista um cavaleiro por id
     /// </summary>
-    /// <param name="id">código do cavaleiro <see cref="Guid"></param>
+    /// <param name="id">código do cavaleiro <see cref="ObjectId"></param>
     /// <returns>Detalhes do cavalheiro <see cref="KnightDetail"/></returns>
     [HttpGet, Route("{id}") ]
     [ProducesResponseType(typeof(KnightDetail), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ExceptionResult), StatusCodes.Status400BadRequest)]
     [ProducesErrorResponseType(typeof(ExceptionResult))]
-    public async Task<object> GetKnightById([FromRoute] Guid id)
+    public async Task<object> GetKnightById([FromRoute] string id)
     {
         var result = await knightApplicationService.GetById(id);
         return ResponseResult(result);
@@ -43,13 +44,13 @@ public class KnightController(IKnightApplicationService knightApplicationService
     /// <summary>
     /// Remove um cavaleiro por id, transformando-o em herói
     /// </summary>
-    /// <param name="id">código do cavaleiro <see cref="Guid"></param>
+    /// <param name="id">código do cavaleiro <see cref="ObjectId"></param>
     /// <returns>Status da operação</returns>
     [HttpDelete, Route("{id}") ]
     [ProducesResponseType(typeof(StatusCodes), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ExceptionResult), StatusCodes.Status400BadRequest)]
     [ProducesErrorResponseType(typeof(ExceptionResult))]
-    public async Task<object> RemoveKnightById([FromRoute] Guid id)
+    public async Task<object> RemoveKnightById([FromRoute] string id)
     {
         await knightApplicationService.RemoveById(id);
         return ResponseResult();
@@ -73,14 +74,14 @@ public class KnightController(IKnightApplicationService knightApplicationService
     /// <summary>
     /// Atualiza um cavaleiro, alterando seu apelido 
     /// </summary>
-    /// <param name="id">código do cavaleiro <see cref="Guid"></param>
+    /// <param name="id">código do cavaleiro <see cref="ObjectId"></param>
     /// <param name="model">Dados do cavaleiro <see cref="KnightUpdate"</param>
     /// <returns>Detalhes do cavalheiro <see cref="KnightDetail"/></returns>
     [HttpPatch, Route("{id}") ]
     [ProducesResponseType(typeof(KnightDetail), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ExceptionResult), StatusCodes.Status400BadRequest)]
     [ProducesErrorResponseType(typeof(ExceptionResult))]
-    public async Task<object> UpdateKnight([FromRoute] Guid id, [FromBody] KnightUpdate model)
+    public async Task<object> UpdateKnight([FromRoute] string id, [FromBody] KnightUpdate model)
     {
         var result = await knightApplicationService.Update(id, model);
         return ResponseResult(result);
