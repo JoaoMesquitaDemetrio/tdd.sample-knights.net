@@ -23,6 +23,7 @@ builder.Services.AddControllers(options =>
 })
 .AddNewtonsoftJson(options => options.SerializerSettings.SetDefaultJsonSerializerSettings());
 
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 builder.Services.AddFluentValidationAutoValidation(options => options.DisableDataAnnotationsValidation = true);
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<KnightInsertValidation>();
@@ -49,6 +50,7 @@ app.SetupExceptionHandler();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseRouting();
+app.UseCors();
 
 app.MapControllers();
 

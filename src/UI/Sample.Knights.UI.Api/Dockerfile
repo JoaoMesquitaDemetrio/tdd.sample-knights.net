@@ -1,9 +1,9 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-jammy AS base
 WORKDIR /app
 EXPOSE 80
 
 USER app
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS restore
+FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy AS restore
 WORKDIR /src
 COPY ["src/UI/Sample.Knights.UI.Api/Sample.Knights.UI.Api.csproj", "src/UI/Sample.Knights.UI.Api/"]
 COPY ["src/Core/Sample.Knights.Core.Application/Sample.Knights.Core.Application.csproj", "src/Core/Sample.Knights.Core.Application/"]

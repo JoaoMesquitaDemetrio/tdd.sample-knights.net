@@ -1,0 +1,32 @@
+networks:
+    knight-network:
+        external: true
+
+services:
+    app-knight-client:
+        ports:
+          - "8080:8080"
+        container_name: app-knight-client
+        image: app-knight-client:latest
+        build:
+            context: src/UI/Sample.Knights.UI.App
+            dockerfile: Dockerfile
+        networks:
+            - knight-network
+        depends_on:
+            - app-knight-api
+
+    app-knight-api:
+        environment:
+          - "ASPNETCORE_ENVIRONMENT=Development"
+          - "ASPNETCORE_URLS=http://+:80"
+          - TZ=America/Sao_Paulo
+        ports:
+          - "5171:80"
+        container_name: app-knight-api
+        image: app-knight-api:latest
+        build:
+            context: .
+            dockerfile: src/UI/Sample.Knights.UI.Api/Dockerfile
+        networks:
+            - knight-network
