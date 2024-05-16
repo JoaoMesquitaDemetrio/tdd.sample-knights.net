@@ -5,8 +5,15 @@ using Sample.Knights.Core.Domain.Interfaces.Repositories;
 
 namespace Sample.Knights.Core.Domain.Services;
 
-public abstract class DataManipulationService<T>(IMongoDBContext context) : DataQueryService<T>(context), IDataManipulationService<T>, IDataQueryService<T> where T : Identifier
+public abstract class DataManipulationService<T> : DataQueryService<T>, IDataManipulationService<T>, IDataQueryService<T> where T : Identifier
 {
+    private readonly IMongoDBContext context;
+    
+    public DataManipulationService(IMongoDBContext context) : base(context) 
+    { 
+        this.context = context; 
+    }
+        
     private FilterDefinition<T> GetFilter(string id)
         => Builders<T>.Filter.Eq(x => x.Id, id);
 
@@ -23,5 +30,14 @@ public abstract class DataManipulationService<T>(IMongoDBContext context) : Data
     {
         var filter = GetFilter(entity.Id);
         await context.Set<T>().ReplaceOneAsync(filter, entity);
+    }
+
+    public new void Dispose()
+    {
+        base.Dispose();
+
+        context?.Dispose();
+        
+        GC.SuppressFinalize(this);
     }
 }
