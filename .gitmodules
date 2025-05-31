@@ -1,3 +1,4 @@
 [submodule "utility/Sample.Utils"]
 	path = utility/Sample.Utils
 	url = git@github.com:JoaoMesquitaDemetrio/Sample.Utils.git
+	branch = master
